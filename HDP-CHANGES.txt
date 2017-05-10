@@ -1,3 +1,4 @@
+  HOTFIX-2993 Delete ember generated bower dir on clean
 --------------------
 Celtic-GA Changes
 --------------------

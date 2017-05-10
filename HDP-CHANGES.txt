@@ -1,3 +1,4 @@
+  HOTFIX-2916 Delete ember generated bower dir on clean
 --------------------
 HDP 3.1.4.0 Changes
 --------------------

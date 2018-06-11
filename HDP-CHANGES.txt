@@ -129,6 +129,8 @@ IMPROVEMENTS
   TEZ-3503. (BUG-67648) Tez UI: Support search by queue name
 
 BUG FIXES
+
+  BUG-106991 TEZ-3951. TezClient wait too long for the DAGClient for prewarm; tries to shut down the wrong DAG (Sergey Shelukhin via Harish Jaiprakash)
   BUG-106994 TEZ-3943. TezClient leaks DAGClient for prewarm (Sergey Shelukhin via jlowe)
   HOTFIX-3347 npm version changed from 3.6.0 to 3.10.8
   HOTFIX-1930 Delete ember generated bower dir on clean

@@ -36,6 +36,8 @@ import org.apache.tez.dag.records.TezDAGID;
 import org.apache.tez.dag.records.TezVertexID;
 import org.apache.tez.serviceplugins.api.DagInfo;
 
+import javax.annotation.Nullable;
+
 /**
  * Main interface to interact with the job.
  */
@@ -92,5 +94,12 @@ public interface DAG extends DagInfo {
   StateChangeNotifier getStateChangeNotifier();
 
   org.apache.tez.dag.api.Vertex.VertexExecutionContext getDefaultExecutionContext();
+
+  /**
+   *
+   * @return the DAGScheduler that will schedule
+   * this DAG, null if it doesn't exist
+   */
+  @Nullable DAGScheduler getDAGScheduler();
 
 }

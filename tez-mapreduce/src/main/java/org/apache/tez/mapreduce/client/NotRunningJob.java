@@ -83,8 +83,6 @@ public class NotRunningJob implements MRClientProtocol {
         .newRecordInstance(ApplicationAttemptId.class);
 
     ApplicationReport report = recordFactory.newRecordInstance(ApplicationReport.class);
-    report.setApplicationId(unknownAppId);
-    report.setCurrentApplicationAttemptId(unknownAttemptId);
     report.setUser("N/A");
     report.setName("N/A");
     report.setDiagnostics("N/A");

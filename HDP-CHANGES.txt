@@ -1,3 +1,4 @@
+  BUG-124415 TEZ-4049. Fix findbugs issues in NotRunningJob (Jonathan Eagles via kshukla)
   BUG-124415 TEZ-4035. Tez master breaks with YARN 3.2.0 ApplicationReport API change (jeagles)
   HOTFIX-2905 Delete ember generated bower dir on clean
 --------------------

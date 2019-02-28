@@ -1933,4 +1933,91 @@ public class TezConfiguration extends Configuration {
   public static final String TEZ_SHARED_EXECUTOR_MAX_THREADS = "tez.shared-executor.max-threads";
   public static final int TEZ_SHARED_EXECUTOR_MAX_THREADS_DEFAULT = -1;
 
+  /**
+   * String value
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_ZOOKEEPER_QUORUM = TEZ_AM_PREFIX
+      + "zookeeper.quorum";
+
+  /**
+   * String value
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_REGISTRY_NAMESPACE = TEZ_AM_PREFIX
+      + "registry.namespace";
+  public static final String TEZ_AM_REGISTRY_NAMESPACE_DEFAULT = "/tez_am/server";
+
+  /**
+   * Boolean value
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_REGISTRY_ENABLE_COMPUTE_GROUPS = TEZ_AM_PREFIX
+    + "registry.enable.compute.groups";
+  public static final boolean TEZ_AM_REGISTRY_ENABLE_COMPUTE_GROUPS_DEFAULT = false;
+
+  /**
+   * Integer value
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_CURATOR_BACKOFF_SLEEP = TEZ_AM_PREFIX
+      + "curator.backoff.sleep";
+  public static final int TEZ_AM_CURATOR_BACKOFF_SLEEP_DEFAULT = 1000;
+
+  /**
+   * Integer value
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_CURATOR_MAX_RETRIES = TEZ_AM_PREFIX
+      + "curator.max.retries";
+  public static final int TEZ_AM_CURATOR_MAX_RETRIES_DEFAULT = 3;
+
+  /**
+   * Integer value (milliseconds)
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_CURATOR_SESSION_TIMEOUT = TEZ_AM_PREFIX
+      + "curator.session.timeout";
+  public static final int TEZ_AM_CURATOR_SESSION_TIMEOUT_DEFAULT = 60000;
+
+  /**
+    * Integer value (milliseconds)
+  */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_CURATOR_CONNECTION_TIMEOUT = TEZ_AM_PREFIX
+	    + "curator.connection.timeout";
+  public static final int TEZ_AM_CURATOR_CONNECTION_TIMEOUT_DEFAULT = 15000;
+
+  @ConfigurationProperty
+  public static final String TEZ_FRAMEWORK_MODE =
+      TEZ_PREFIX + ".framework.mode";
+
+  /**
+   * List of additional hadoop config files to load from CLASSPATH in ZOOKEEPER_STANDALONE framework mode
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_AM_STANDALONE_CONFS =
+      TEZ_AM_PREFIX + "standalone.confs";
+
+  /**
+   *  Acquire all FileSystems info. e.g., all namenodes info of HDFS federation cluster.
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_JOB_FS_SERVERS = "tez.job.fs-servers";
+
+  /**
+   *  Skip delegation token renewal for specified FileSystems.
+   */
+  @ConfigurationScope(Scope.AM)
+  @ConfigurationProperty
+  public static final String TEZ_JOB_FS_SERVERS_TOKEN_RENEWAL_EXCLUDE = "tez.job.fs-servers.token-renewal.exclude";
 }

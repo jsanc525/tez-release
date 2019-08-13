@@ -1,4 +1,14 @@
 --------------------
+HDP 3.1.4.0 Changes
+--------------------
+
+BUG-121111: Upgrade to guava 28.0-jre
+TEZ-4004: Update jetty9 to align with Hadoop and Hive
+TEZ-3982: DAGAppMaster and tasks should not report negative or invalid progress
+TEZ-3957: Report TASK_DURATION_MILLIS as a Counter for completed tasks
+TEZ-4014: EDWS: Read AM plugin descriptors from JSON
+
+--------------------
 Celtic-GA Changes
 --------------------
 

@@ -1,4 +1,13 @@
 --------------------
+HDP 3.1.5.0 Changes
+--------------------
+
+TEZ-4091: UnorderedPartitionedKVWriter::readDataForDME should check if in-mem file is flushed or not
+TEZ-4088: Create in-memory ifile writer for transferring smaller payloads (follow up of TEZ-4075)
+TEZ-4075: Tez: Reimplement tez.runtime.transfer.data-via-events.enabled
+BUG-122215: Upgrading shade plugin to 3.2.1
+
+--------------------
 HDP 3.1.4.0 Changes
 --------------------
 

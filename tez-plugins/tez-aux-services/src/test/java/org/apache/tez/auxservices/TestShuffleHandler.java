@@ -789,14 +789,11 @@ public class TestShuffleHandler {
     FSDataOutputStream output = FileSystem.getLocal(conf).getRaw().append(
         new Path(indexFile.getAbsolutePath()));
     Checksum crc = new PureJavaCrc32();
-    crc.reset();
-    CheckedOutputStream chk = new CheckedOutputStream(output, crc);
-    String msg = "Writing new index file. This file will be used only " +
-        "for the testing.";
-    chk.write(Arrays.copyOf(msg.getBytes(),
-        MapTask.MAP_OUTPUT_INDEX_RECORD_LENGTH));
-    output.writeLong(chk.getChecksum().getValue());
-    output.close();
+    TezSpillRecord tezSpillRecord = new TezSpillRecord(2);
+    tezSpillRecord.putIndex(new TezIndexRecord(0, 10, 10), 0);
+    tezSpillRecord.putIndex(new TezIndexRecord(10, 10, 10), 1);
+    tezSpillRecord.writeToFile(new Path(indexFile.getAbsolutePath()), conf,
+        FileSystem.getLocal(conf).getRaw(), crc);
   }
 
   @Test
@@ -938,7 +935,7 @@ public class TestShuffleHandler {
       shuffle = new ShuffleHandler();
       shuffle.setRecoveryPath(new Path(tmpDir.toString()));
       shuffle.init(conf);
-    
+
       try {
         shuffle.start();
         Assert.fail("Incompatible version, should expect fail here.");

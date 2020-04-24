@@ -210,7 +210,7 @@ public class OrderedPartitionedKVOutput extends AbstractLogicalOutput {
       String auxiliaryService = conf.get(TezConfiguration.TEZ_AM_SHUFFLE_AUXILIARY_SERVICE_ID,
           TezConfiguration.TEZ_AM_SHUFFLE_AUXILIARY_SERVICE_ID_DEFAULT);
       ShuffleUtils.generateEventOnSpill(eventList, finalMergeEnabled, isLastEvent,
-          getContext(), 0, new TezSpillRecord(sorter.getFinalIndexFile(), conf),
+          getContext(), 0, new TezSpillRecord(sorter.getFinalIndexFile(), localFs),
           getNumPhysicalOutputs(), sendEmptyPartitionDetails, getContext().getUniqueIdentifier(),
           sorter.getPartitionStats(), sorter.reportDetailedPartitionStats(), auxiliaryService, deflater);
     }

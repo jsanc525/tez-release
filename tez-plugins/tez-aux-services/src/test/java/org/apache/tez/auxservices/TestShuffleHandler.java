@@ -96,6 +96,8 @@ import org.mockito.stubbing.Answer;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.tez.runtime.library.common.sort.impl.TezIndexRecord;
+import org.apache.tez.runtime.library.common.sort.impl.TezSpillRecord;
 
 public class TestShuffleHandler {
   static final long MiB = 1024 * 1024;

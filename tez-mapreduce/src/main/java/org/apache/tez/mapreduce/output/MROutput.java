@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.protobuf.ByteString;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
@@ -199,7 +200,7 @@ public class MROutput extends AbstractLogicalOutput {
         outputPath = conf.get(org.apache.hadoop.mapreduce.lib.output.FileOutputFormat.OUTDIR);
       }
     }
-    
+
     /**
      * Create the {@link DataSinkDescriptor}
      * @return {@link DataSinkDescriptor}
@@ -242,7 +243,7 @@ public class MROutput extends AbstractLogicalOutput {
       }
       return ds;
     }
-    
+
     /**
      * Get the credentials for the output from its {@link FileSystem}s
      * Use the method to turn this off when not using a {@link FileSystem}
@@ -254,7 +255,7 @@ public class MROutput extends AbstractLogicalOutput {
       getCredentialsForSinkFilesystem = value;
       return this;
     }
-    
+
     /**
      * Disable commit operations for the output (default: true)
      * If the value is set to false then no {@link org.apache.tez.runtime.api.OutputCommitter} will
@@ -354,7 +355,7 @@ public class MROutput extends AbstractLogicalOutput {
 
   private final NumberFormat taskNumberFormat = NumberFormat.getInstance();
   private final NumberFormat nonTaskNumberFormat = NumberFormat.getInstance();
-  
+
   protected JobConf jobConf;
   boolean useNewApi;
   protected AtomicBoolean flushed = new AtomicBoolean(false);
@@ -398,8 +399,9 @@ public class MROutput extends AbstractLogicalOutput {
     taskNumberFormat.setGroupingUsed(false);
     nonTaskNumberFormat.setMinimumIntegerDigits(3);
     nonTaskNumberFormat.setGroupingUsed(false);
-    Configuration conf = TezUtils.createConfFromUserPayload(getContext().getUserPayload());
-    this.jobConf = new JobConf(conf);
+    UserPayload userPayload = getContext().getUserPayload();
+    this.jobConf = new JobConf(getContext().getContainerConfiguration());
+    TezUtils.addToConfFromByteString(this.jobConf, ByteString.copyFrom(userPayload.getPayload()));
     // Add tokens to the jobConf - in case they are accessed within the RW / OF
     jobConf.getCredentials().mergeAll(UserGroupInformation.getCurrentUser().getCredentials());
     this.isMapperOutput = jobConf.getBoolean(MRConfig.IS_MAP_PROCESSOR,
@@ -421,7 +423,7 @@ public class MROutput extends AbstractLogicalOutput {
     jobConf.setInt(JobContext.TASK_PARTITION,
       taskAttemptId.getTaskID().getId());
     jobConf.set(JobContext.ID, taskAttemptId.getJobID().toString());
-    
+
     String outputFormatClassName;
 
     outputRecordCounter = getContext().getCounters().findCounter(
@@ -529,8 +531,8 @@ public class MROutput extends AbstractLogicalOutput {
   protected String getOutputFileNamePrefix() {
     String prefix = jobConf.get(MRJobConfig.MROUTPUT_FILE_NAME_PREFIX);
     if (prefix == null) {
-      prefix = "part-v" + 
-          nonTaskNumberFormat.format(getContext().getTaskVertexIndex()) +  
+      prefix = "part-v" +
+          nonTaskNumberFormat.format(getContext().getTaskVertexIndex()) +
           "-o" + nonTaskNumberFormat.format(getContext().getOutputIndex());
     }
     return prefix;
@@ -583,9 +585,9 @@ public class MROutput extends AbstractLogicalOutput {
 
     return null;
   }
-  
+
   /**
-   * Call this in the processor before finishing to ensure outputs that 
+   * Call this in the processor before finishing to ensure outputs that
    * outputs have been flushed. Must be called before commit.
    * @throws IOException
    */

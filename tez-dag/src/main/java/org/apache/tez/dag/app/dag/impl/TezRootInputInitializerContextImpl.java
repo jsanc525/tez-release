@@ -22,6 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Set;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.Resource;
 import org.apache.tez.common.counters.TezCounters;
@@ -84,7 +85,12 @@ public class TezRootInputInitializerContextImpl implements
   public UserPayload getUserPayload() {
     return this.input.getControllerDescriptor().getUserPayload();
   }
-  
+
+  @Override
+  public Configuration getVertexConfiguration() {
+    return vertex.getConf();
+  }
+
   @Override 
   public int getNumTasks() {
     return vertex.getTotalTasks();

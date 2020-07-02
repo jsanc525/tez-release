@@ -49,6 +49,10 @@ public class TezSpillRecord {
     entries = buf.asLongBuffer();
   }
 
+  public TezSpillRecord(Path indexFileName, Configuration job, String expectedIndexOwner) throws IOException {
+    this(indexFileName, FileSystem.getLocal(job).getRaw(), new PureJavaCrc32(), expectedIndexOwner);
+  }
+
   public TezSpillRecord(Path indexFileName, Configuration conf) throws IOException {
     this(indexFileName, FileSystem.getLocal(conf).getRaw());
   }
@@ -69,7 +73,7 @@ public class TezSpillRecord {
     final FSDataInputStream in = rfs.open(indexFileName);
     try {
       final long length = rfs.getFileStatus(indexFileName).getLen();
-      final int partitions = 
+      final int partitions =
           (int) length / Constants.MAP_OUTPUT_INDEX_RECORD_LENGTH;
       final int size = partitions * Constants.MAP_OUTPUT_INDEX_RECORD_LENGTH;
 

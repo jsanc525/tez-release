@@ -148,7 +148,7 @@ public class TestShuffleUtils {
       startOffset += partLen;
       spillRecord.putIndex(indexRecord, i);
     }
-    spillRecord.writeToFile(path, conf, FileSystem.getLocal(conf).getRaw());
+    spillRecord.writeToFile(path, conf);
     return path;
   }
 

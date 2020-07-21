@@ -235,7 +235,6 @@ public class Fetcher extends CallableWithNdc<FetchResult> {
     }
   }
 
-
   // helper method to populate the remaining map
   void populateRemainingMap(List<InputAttemptIdentifier> origlist) {
     if (srcAttemptsRemaining == null) {
@@ -358,7 +357,7 @@ public class Fetcher extends CallableWithNdc<FetchResult> {
         }
 
         spillRec.putIndex(indexRec, 0);
-        spillRec.writeToFile(tmpIndex, conf, localFs);
+        spillRec.writeToFile(tmpIndex, conf);
         // everything went well so far - rename it
         boolean renamed = localFs.rename(tmpIndex, outputPath
             .suffix(Constants.TEZ_RUNTIME_TASK_OUTPUT_INDEX_SUFFIX_STRING));
@@ -736,7 +735,7 @@ public class Fetcher extends CallableWithNdc<FetchResult> {
     Path indexFile = getShuffleInputFileName(srcAttemptId.getPathComponent(),
         Constants.TEZ_RUNTIME_TASK_OUTPUT_INDEX_SUFFIX_STRING);
 
-    TezSpillRecord spillRecord = new TezSpillRecord(indexFile, localFs);
+    TezSpillRecord spillRecord = new TezSpillRecord(indexFile, conf);
     idxRecord = spillRecord.getIndex(partition);
     return idxRecord;
   }

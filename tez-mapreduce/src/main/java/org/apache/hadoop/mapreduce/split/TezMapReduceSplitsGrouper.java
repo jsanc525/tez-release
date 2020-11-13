@@ -107,6 +107,13 @@ public class TezMapReduceSplitsGrouper {
    */
   public static final String TEZ_GROUPING_REPEATABLE = "tez.grouping.repeatable";
   public static final boolean TEZ_GROUPING_REPEATABLE_DEFAULT = true;
+  
+  /**
+   * Should we group splits across files. True by default
+   */
+  public static final String TEZ_GROUPING_ACROSS_FILES = "tez.grouping.across-files";
+  public static final boolean TEZ_GROUPING_ACROSS_FILES_DEFAULT = true;
+  
 
   static class SplitHolder {
     InputSplit split;
